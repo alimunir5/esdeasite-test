@@ -3,9 +3,9 @@
 Site web du cabinet de conseil **ESDEA Consulting** (data, IA, développement).
 
 - **Stack** : React 18 + Vite + React Router
-- **Hébergement** : Vercel
+- **Hébergement** : OVH Cloud (hébergement mutualisé)
 - **Domaine** : esdeaconsulting.fr
-- **Formulaire de contact** : Resend (serverless function `/api/contact`)
+- **Formulaire de contact** : PHP (`api/contact.php`) → Resend
 
 ---
 
@@ -21,19 +21,15 @@ cd esdea-consulting
 # 2. Installer les dépendances
 npm install
 
-# 3. Créer le fichier d'environnement
-cp .env.example .env
-# puis ouvrir .env et remplir les vraies valeurs (voir plus bas)
-
-# 4. Lancer le serveur de développement
+# 3. Lancer le serveur de développement
 npm run dev
 ```
 
 Le site tourne sur `http://localhost:5173`.
 
-> Note : le formulaire de contact (`/api/contact`) ne fonctionne pas avec
-> `npm run dev` seul. Pour le tester en local, utiliser `vercel dev`
-> (voir section "Tester le formulaire en local").
+> Note : le formulaire de contact (`/api/contact.php`) nécessite un serveur PHP.
+> En local, il ne fonctionne pas avec `npm run dev` seul. Pour le tester,
+> voir la section "Tester le formulaire en local".
 
 ---
 
@@ -42,8 +38,11 @@ Le site tourne sur `http://localhost:5173`.
 ```
 esdea-consulting/
 ├── api/
-│   └── contact.js          → fonction serverless (envoi mail)
+│   ├── .htaccess           → bloque l'accès direct à config.php
+│   ├── contact.php         → script PHP d'envoi de mail (Resend)
+│   └── config.example.php  → template de config (copier en config.php)
 ├── public/
+│   ├── .htaccess           → routing SPA pour Apache (OVH)
 │   └── favicon.svg
 ├── src/
 │   ├── components/         → composants réutilisables (Navbar, Footer…)
@@ -54,8 +53,7 @@ esdea-consulting/
 │   │   └── global.css      → design system (couleurs, typo, boutons)
 │   ├── App.jsx             → routing
 │   └── main.jsx            → point d'entrée
-├── .env.example            → modèle de variables d'environnement
-├── vercel.json             → config de déploiement
+├── .env.example            → référence des variables d'environnement
 └── package.json
 ```
 
@@ -73,41 +71,48 @@ pas besoin de toucher au code des composants.
 
 ---
 
-## Variables d'environnement
+## Variables de configuration (production)
 
-Le formulaire de contact a besoin de 3 variables (fichier `.env` en local,
-dashboard Vercel en production) :
+En production, les valeurs sensibles sont dans `api/config.php` (non commité).
+Copier `api/config.example.php` en `api/config.php` sur le serveur et remplir :
 
-| Variable             | Description                                        |
+| Constante            | Description                                        |
 |----------------------|----------------------------------------------------|
 | `RESEND_API_KEY`     | Clé API Resend (compte gratuit sur resend.com)     |
 | `CONTACT_TO_EMAIL`   | Adresse qui reçoit les messages                    |
 | `CONTACT_FROM_EMAIL` | Adresse d'expéditeur (domaine vérifié sur Resend)  |
 
-⚠️ Le fichier `.env` ne doit **jamais** être commité (il est dans `.gitignore`).
+⚠️ `api/config.php` ne doit **jamais** être commité (il est dans `.gitignore`).
 
 ---
 
-## Déploiement (Vercel)
+## Déploiement (OVH)
 
-Le déploiement est automatique : **chaque push sur `main` met le site à jour.**
+Voir le fichier [`DEPLOIEMENT.md`](./DEPLOIEMENT.md) pour le guide complet.
 
-Mise en place initiale (à faire une seule fois) :
-
-1. Créer un compte sur [vercel.com](https://vercel.com) et connecter le compte GitHub.
-2. Importer le dépôt `esdea-consulting`.
-3. Vercel détecte Vite automatiquement — laisser les réglages par défaut.
-4. Dans **Settings → Environment Variables**, ajouter les 3 variables ci-dessus.
-5. Dans **Settings → Domains**, ajouter `esdeaconsulting.fr`.
-6. Déployer.
+En résumé :
+1. `npm run build` → génère le dossier `dist/`
+2. Uploader le contenu de `dist/` dans `www/` via FTP
+3. Uploader `api/contact.php` et `api/.htaccess` dans `www/api/`
+4. Créer `www/api/config.php` sur le serveur avec les vraies valeurs
 
 ---
 
 ## Tester le formulaire en local
 
+Avec PHP CLI installé :
+
 ```bash
-npm i -g vercel       # une seule fois
-vercel dev            # lance le site + les fonctions /api
+# 1. Builder le projet
+npm run build
+
+# 2. Copier api/ dans dist/
+cp -r api dist/api
+cp dist/api/config.example.php dist/api/config.php
+# Éditer dist/api/config.php avec une vraie clé Resend de test
+
+# 3. Lancer un serveur PHP pointant sur dist/
+php -S localhost:8080 -t dist
 ```
 
 ---

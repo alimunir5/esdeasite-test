@@ -32,8 +32,8 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
-# Vercel
-.vercel
+# OVH — config PHP avec les secrets (ne jamais commiter)
+api/config.php
 
 # Claude Code
 .claude
