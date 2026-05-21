@@ -1,0 +1,17 @@
+.services-full-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* La page Services réutilise .cta-section de Home.css —
+   on le redéclare ici pour que la page soit autonome. */
+.services-full-grid + * { margin-top: 0; }
+
+@media (max-width: 760px) {
+  .services-full-grid { grid-template-columns: 1fr; }
+}

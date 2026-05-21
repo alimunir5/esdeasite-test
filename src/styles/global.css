@@ -1,0 +1,156 @@
+/* ============================================
+   ESDEA Consulting — Design System
+   Thème : Corporate sombre épuré
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #111;
+  --surface: #161616;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f5;
+  --text-dim: #a1a1a1;
+  --text-mute: #6b6b6b;
+  --accent: #d4a574;
+  --accent-dim: #a8845c;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Fraunces', serif;
+
+  --maxw: 1280px;
+}
+
+html { scroll-behavior: smooth; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+body { overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- Typographie ---------- */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; }
+em { font-style: italic; color: var(--accent); }
+
+.eyebrow {
+  font-size: 13px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+  padding: 11px 24px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 14px;
+  transition: all 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+}
+.btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+.btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Sections ---------- */
+.section { padding: 120px 0; border-top: 1px solid var(--line); }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.section-header h2 {
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.05;
+  max-width: 680px;
+}
+.section-desc { color: var(--text-dim); max-width: 380px; font-size: 15px; }
+
+/* ---------- Hero de page interne ---------- */
+.page-hero {
+  padding: 170px 0 90px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.08), transparent 70%);
+  pointer-events: none;
+}
+.page-hero h1 {
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 1.02;
+  margin: 0 0 24px;
+}
+.page-hero p { color: var(--text-dim); font-size: 18px; max-width: 560px; }
+
+/* ---------- Section CTA (partagée par plusieurs pages) ---------- */
+.cta-section {
+  padding: 140px 0;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.08), transparent 60%);
+}
+.cta-content { position: relative; z-index: 1; }
+.cta-content h2 {
+  font-size: clamp(36px, 4.5vw, 56px);
+  margin: 0 auto 24px;
+}
+.cta-content p {
+  color: var(--text-dim);
+  font-size: 18px;
+  max-width: 520px;
+  margin: 0 auto 40px;
+}
+
+/* ---------- Animation au scroll ---------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .container { padding: 0 20px; }
+  .section { padding: 80px 0; }
+  .page-hero { padding: 130px 0 60px; }
+}
