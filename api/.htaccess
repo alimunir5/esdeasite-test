@@ -1,5 +1,5 @@
-# Interdit l'accès direct au fichier de configuration
+# Interdit l'accès direct à config.php depuis le navigateur
 <Files "config.php">
-  Order Allow,Deny
+  Order allow,deny
   Deny from all
 </Files>

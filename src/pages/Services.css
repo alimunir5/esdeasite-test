@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-/* La page Services réutilise .cta-section de Home.css —
+/* La page Services réutilise .cta-section de Home.css -
    on le redéclare ici pour que la page soit autonome. */
 .services-full-grid + * { margin-top: 0; }
 

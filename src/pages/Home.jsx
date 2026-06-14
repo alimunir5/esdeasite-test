@@ -24,7 +24,7 @@ export default function Home() {
               <p className="hero-sub">
                 ESDEA Consulting accompagne les entreprises ambitieuses dans
                 leur transformation numérique. Architecture data, ingénierie
-                logicielle, conseil stratégique — sur mesure.
+                logicielle, conseil stratégique. Sur mesure.
               </p>
               <div className="hero-actions">
                 <Link to="/services" className="btn btn-primary">

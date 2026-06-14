@@ -39,6 +39,59 @@
   background: var(--bg-2);
 }
 
+/* ---------- Onglets ---------- */
+.contact-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 32px;
+}
+.contact-tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.contact-tab:hover { color: var(--text); }
+.contact-tab.active {
+  background: var(--bg-2);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+
+/* ---------- Bloc RDV ---------- */
+.rdv-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 16px 16px;
+  gap: 16px;
+}
+.rdv-icon {
+  font-size: 40px;
+  line-height: 1;
+}
+.rdv-block h3 {
+  font-size: 22px;
+  font-weight: 500;
+}
+.rdv-block p {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
 /* ---------- Formulaire ---------- */
 .contact-form-wrap {
   border: 1px solid var(--line);

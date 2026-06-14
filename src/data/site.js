@@ -1,5 +1,5 @@
 // ============================================
-// Contenu du site — centralisé ici.
+// Contenu du site - centralisé ici.
 // Modifiez ce fichier pour mettre à jour les services,
 // l'équipe ou les stats sans toucher aux composants.
 // ============================================
@@ -13,9 +13,7 @@ export const SITE = {
 }
 
 export const STATS = [
-  { num: '12+', label: 'Projets livrés' },
-  { num: '100%', label: 'Clients satisfaits' },
-  { num: '3', label: 'Experts associés' },
+  { num: '3', label: 'Associés' },
   { num: '24h', label: 'Délai de réponse' },
 ]
 

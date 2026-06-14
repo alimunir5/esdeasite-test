@@ -1,44 +1,46 @@
-import { useState } from 'react'
-import { SITE } from '../data/site.js'
-import { useReveal } from '../components/useReveal.js'
-import './Contact.css'
+import { useState } from "react";
+import { SITE } from "../data/site.js";
+import { useReveal } from "../components/useReveal.js";
+import "./Contact.css";
 
-const EMPTY = { name: '', email: '', company: '', message: '' }
+const EMPTY = { name: "", email: "", company: "", message: "" };
+const ZCAL_URL = "https://zcal.co/esdeaconsulting";
 
 export default function Contact() {
-  useReveal()
+  useReveal();
 
-  const [form, setForm] = useState(EMPTY)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
-  const [errorMsg, setErrorMsg] = useState('')
+  const [tab, setTab] = useState("form"); // 'form' | 'rdv'
+  const [form, setForm] = useState(EMPTY);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [errorMsg, setErrorMsg] = useState("");
 
   const update = (e) =>
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus('sending')
-    setErrorMsg('')
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
 
     try {
-      const res = await fetch('/api/contact.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
-      })
+      });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        throw new Error(data.error || 'Une erreur est survenue.')
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Une erreur est survenue.");
       }
 
-      setStatus('success')
-      setForm(EMPTY)
+      setStatus("success");
+      setForm(EMPTY);
     } catch (err) {
-      setStatus('error')
-      setErrorMsg(err.message)
+      setStatus("error");
+      setErrorMsg(err.message);
     }
-  }
+  };
 
   return (
     <>
@@ -49,8 +51,8 @@ export default function Contact() {
             Parlons de votre <em>projet</em>.
           </h1>
           <p>
-            Un premier échange gratuit pour comprendre vos besoins. Réponse
-            sous 24h ouvrées.
+            Un premier échange gratuit pour comprendre vos besoins. Réponse sous
+            24h ouvrées.
           </p>
         </div>
       </header>
@@ -77,14 +79,46 @@ export default function Contact() {
 
               <div className="info-note">
                 Vous préférez écrire directement ? Notre boîte mail est ouverte.
-                Sinon, remplissez le formulaire — c'est nous qui revenons vers
+                Sinon, remplissez le formulaire : c'est nous qui revenons vers
                 vous.
               </div>
             </div>
 
             {/* Formulaire */}
             <div className="contact-form-wrap fade-up">
-              {status === 'success' ? (
+              <div className="contact-tabs">
+                <button
+                  className={`contact-tab${tab === "form" ? " active" : ""}`}
+                  onClick={() => setTab("form")}
+                >
+                  Envoyer un message
+                </button>
+                <button
+                  className={`contact-tab${tab === "rdv" ? " active" : ""}`}
+                  onClick={() => setTab("rdv")}
+                >
+                  Prendre rendez-vous
+                </button>
+              </div>
+
+              {tab === "rdv" ? (
+                <div className="rdv-block">
+                  <h3>Réserver un créneau</h3>
+                  <p>
+                    Choisissez directement un créneau dans notre agenda.
+                    L'échange dure 30 minutes et est gratuit, on prend le temps
+                    de comprendre votre projet.
+                  </p>
+                  <a
+                    href={ZCAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    Voir les disponibilités →
+                  </a>
+                </div>
+              ) : status === "success" ? (
                 <div className="form-success">
                   <div className="success-icon">✓</div>
                   <h3>Message envoyé.</h3>
@@ -92,10 +126,7 @@ export default function Contact() {
                     Merci pour votre message. L'équipe ESDEA vous répond sous
                     24h ouvrées.
                   </p>
-                  <button
-                    className="btn"
-                    onClick={() => setStatus('idle')}
-                  >
+                  <button className="btn" onClick={() => setStatus("idle")}>
                     Envoyer un autre message
                   </button>
                 </div>
@@ -153,16 +184,18 @@ export default function Contact() {
                     />
                   </div>
 
-                  {status === 'error' && (
+                  {status === "error" && (
                     <div className="form-error">{errorMsg}</div>
                   )}
 
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    disabled={status === 'sending'}
+                    disabled={status === "sending"}
                   >
-                    {status === 'sending' ? 'Envoi en cours…' : 'Envoyer le message →'}
+                    {status === "sending"
+                      ? "Envoi en cours…"
+                      : "Envoyer le message →"}
                   </button>
 
                   <p className="form-legal">
@@ -176,5 +209,5 @@ export default function Contact() {
         </div>
       </section>
     </>
-  )
+  );
 }
