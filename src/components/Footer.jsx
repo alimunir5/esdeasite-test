@@ -28,13 +28,6 @@ export default function Footer() {
           </div>
 
           <div className="footer-col">
-            <h5>Services</h5>
-            <Link to="/services#data-ia">Data &amp; IA</Link>
-            <Link to="/services#infra-cyber">Infrastructure &amp; Cybersécurité</Link>
-            <Link to="/services#conseil">Conseil &amp; Stratégie</Link>
-          </div>
-
-          <div className="footer-col">
             <h5>Contact</h5>
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             <a href="#" target="_blank" rel="noreferrer">LinkedIn</a>
