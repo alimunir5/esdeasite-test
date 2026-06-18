@@ -2,6 +2,8 @@
   background: var(--bg);
   padding: 40px;
   transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 .service-card:hover { background: var(--surface); }
 
@@ -36,7 +38,8 @@
 /* Variante détaillée */
 .service-card.full { padding: 44px; }
 .service-skills {
-  margin-top: 28px;
+  margin-top: auto;
+  padding-top: 28px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;

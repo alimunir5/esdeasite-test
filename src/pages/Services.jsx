@@ -13,7 +13,7 @@ export default function Services() {
         <div className="container">
           <span className="eyebrow">Nos services</span>
           <h1>
-            Cinq expertises,<br />
+            Trois pôles d'expertise,<br />
             une <em>même exigence</em>.
           </h1>
           <p>
@@ -28,7 +28,7 @@ export default function Services() {
         <div className="container">
           <div className="services-full-grid">
             {SERVICES.map((s) => (
-              <div className="fade-up" key={s.id}>
+              <div className="fade-up" key={s.id} id={s.id}>
                 <ServiceCard service={s} variant="full" />
               </div>
             ))}

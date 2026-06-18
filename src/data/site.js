@@ -19,67 +19,28 @@ export const STATS = [
 
 export const SERVICES = [
   {
-    id: "data",
+    id: "data-ia",
     num: "01",
-    cat: "Data",
-    title: "Valorisation de la donnée",
-    short:
-      "Collecte, structuration, exploitation et valorisation de la donnée.",
+    cat: "Data & IA",
+    title: "De la donnée à l'intelligence",
+    short: "Gouvernance, ingénierie data, BI, machine learning et IA générative.",
     description:
-      "La donnée est au cœur de toute décision éclairée. Nous intervenons sur l'ensemble du cycle de vie de vos données : gouvernance, ingénierie (ETL, datalakes, entrepôts cloud), analyse, visualisation et reporting. Que ce soit pour structurer un premier entrepôt ou industrialiser une plateforme data existante, nous adaptons notre intervention à votre maturité et vos enjeux.",
-    skills: [
-      "BigQuery",
-      "GCP / AWS",
-      "Power BI",
-      "Data Governance",
-      "Reporting",
-    ],
+      "Nous intervenons sur l'ensemble du cycle de vie de vos données (collecte, structuration, gouvernance, analyse et visualisation) et y greffons l'intelligence artificielle là où elle crée de la valeur : modèles prédictifs, détection d'anomalies, traitement du langage naturel, agents autonomes et LLM. Une seule équipe, du pipeline brut à la décision augmentée.",
+    skills: ["BigQuery", "GCP / AWS", "Power BI", "Machine Learning", "LLM / RAG", "Agents", "Data Governance"],
   },
   {
-    id: "ia",
+    id: "infra-cyber",
     num: "02",
-    cat: "IA",
-    title: "Intelligence Artificielle",
-    short: "Machine learning, modèles prédictifs, agents et LLM.",
+    cat: "Infrastructure & Cybersécurité",
+    title: "Des systèmes robustes et défendus",
+    short: "Architecture réseau, cloud hybride, audit sécurité et conformité RGPD.",
     description:
-      "De la modélisation statistique classique aux architectures d'IA générative, nous concevons des solutions adaptées à votre problématique : modèles prédictifs, classification, détection d'anomalies, traitement du langage naturel, intégration de modèles de langage (LLM) et agents autonomes. L'IA mise en production, pas en démonstration.",
-    skills: [
-      "Machine Learning",
-      "Modèles prédictifs",
-      "NLP",
-      "LLM / RAG",
-      "Agents",
-    ],
-  },
-  {
-    id: "reseau",
-    num: "03",
-    cat: "Réseau",
-    title: "Infrastructure & Réseaux",
-    short: "Architecture réseau, déploiement cloud, haute disponibilité.",
-    description:
-      "Nous concevons et déployons des infrastructures réseau robustes adaptées à vos besoins : architecture LAN/WAN, VPN, segmentation, supervision. Sur site ou en cloud hybride, nous garantissons performance, disponibilité et évolutivité.",
-    skills: [
-      "LAN / WAN",
-      "VPN",
-      "Cloud hybride",
-      "Supervision",
-      "Virtualisation",
-    ],
-  },
-  {
-    id: "cyber",
-    num: "04",
-    cat: "Cybersécurité",
-    title: "Cybersécurité & Résilience numérique",
-    short: "Audit de sécurité, conformité RGPD, protection des systèmes.",
-    description:
-      "Nous évaluons et renforçons la posture de sécurité de votre organisation : audits techniques, tests d'intrusion, conformité RGPD, gestion des accès et des identités. Anticiper les menaces plutôt que les subir.",
-    skills: ["Audit sécurité", "Pentest", "RGPD", "IAM", "SIEM"],
+      "Nous concevons des infrastructures réseau performantes et évolutives (LAN/WAN, VPN, cloud hybride, supervision) et les sécurisons de bout en bout : audits techniques, tests d'intrusion, gestion des accès et conformité réglementaire. La solidité de vos systèmes et leur protection, traités comme un tout.",
+    skills: ["LAN / WAN", "Cloud hybride", "Audit sécurité", "Pentest", "RGPD", "IAM", "SIEM"],
   },
   {
     id: "conseil",
-    num: "05",
+    num: "03",
     cat: "Conseil",
     title: "Conseil & Stratégie",
     short: "Audit, roadmap technique, accompagnement décision.",

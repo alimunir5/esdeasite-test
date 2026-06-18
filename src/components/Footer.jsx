@@ -29,11 +29,9 @@ export default function Footer() {
 
           <div className="footer-col">
             <h5>Services</h5>
-            <Link to="/services">Valorisation de la donnée</Link>
-            <Link to="/services">Intelligence Artificielle</Link>
-            <Link to="/services">Infrastructure &amp; Réseaux</Link>
-            <Link to="/services">Cybersécurité</Link>
-            <Link to="/services">Conseil &amp; Stratégie</Link>
+            <Link to="/services#data-ia">Data &amp; IA</Link>
+            <Link to="/services#infra-cyber">Infrastructure &amp; Cybersécurité</Link>
+            <Link to="/services#conseil">Conseil &amp; Stratégie</Link>
           </div>
 
           <div className="footer-col">
