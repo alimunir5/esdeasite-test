@@ -14,7 +14,7 @@ export default function Footer() {
               esdea<span>.</span>
             </Link>
             <p>
-              Cabinet de conseil indépendant en data, IA et développement,
+              Cabinet de conseil indépendant en data, IA et cybersécurité,
               basé en {SITE.location}.
             </p>
           </div>
@@ -29,10 +29,11 @@ export default function Footer() {
 
           <div className="footer-col">
             <h5>Services</h5>
-            <Link to="/services">Data Engineering</Link>
-            <Link to="/services">IA &amp; LLM</Link>
-            <Link to="/services">Développement web</Link>
-            <Link to="/services">Business Intelligence</Link>
+            <Link to="/services">Valorisation de la donnée</Link>
+            <Link to="/services">Intelligence Artificielle</Link>
+            <Link to="/services">Infrastructure &amp; Réseaux</Link>
+            <Link to="/services">Cybersécurité</Link>
+            <Link to="/services">Conseil &amp; Stratégie</Link>
           </div>
 
           <div className="footer-col">

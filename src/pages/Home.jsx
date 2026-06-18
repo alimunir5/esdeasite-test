@@ -16,7 +16,7 @@ export default function Home() {
             <div>
               <div className="badge">
                 <span className="badge-dot" />
-                Cabinet de conseil IT &amp; Data
+                Cabinet de conseil Data, Cybersécurité et IT
               </div>
               <h1>
                 Transformer la <em>donnée</em> en décision stratégique.

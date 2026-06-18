@@ -13,7 +13,7 @@ export default function Services() {
         <div className="container">
           <span className="eyebrow">Nos services</span>
           <h1>
-            Six expertises,<br />
+            Cinq expertises,<br />
             une <em>même exigence</em>.
           </h1>
           <p>
