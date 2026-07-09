@@ -19,7 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require __DIR__ . '/config.php';
+// Config : fichier config.php si présent, sinon variables d'environnement.
+$configPath = __DIR__ . '/config.php';
+if (is_readable($configPath)) {
+    require $configPath;
+}
+if (!defined('RESEND_API_KEY'))     define('RESEND_API_KEY',     getenv('RESEND_API_KEY') ?: '');
+if (!defined('CONTACT_TO_EMAIL'))   define('CONTACT_TO_EMAIL',   getenv('CONTACT_TO_EMAIL') ?: 'contact@esdeaconsulting.fr');
+if (!defined('CONTACT_FROM_EMAIL')) define('CONTACT_FROM_EMAIL', getenv('CONTACT_FROM_EMAIL') ?: 'site@esdeaconsulting.fr');
+
+if (!RESEND_API_KEY) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Configuration serveur manquante : clé API Resend introuvable (config.php non déployé ?).']);
+    exit;
+}
 
 $data    = json_decode(file_get_contents('php://input'), true) ?? [];
 $name    = trim($data['name']    ?? '');
@@ -53,8 +66,8 @@ $html = '<div style="font-family:sans-serif;max-width:560px;margin:0 auto">'
 
 $payload = json_encode([
     'from'    => 'Site ESDEA <' . CONTACT_FROM_EMAIL . '>',
-    'to'      => [CONTACT_TO_EMAIL],
-    'replyTo' => $email,
+    'to'       => [CONTACT_TO_EMAIL],
+    'reply_to' => $email,
     'subject' => $subject,
     'html'    => $html,
     'text'    => "Nom : $name\nEmail : $email\nEntreprise : " . ($company ?: '—') . "\n\nMessage :\n$message",
@@ -75,11 +88,28 @@ curl_setopt_array($ch, [
 
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlErr  = curl_error($ch);
 curl_close($ch);
 
 if ($httpCode >= 200 && $httpCode < 300) {
     echo json_encode(['ok' => true]);
-} else {
-    http_response_code(500);
-    echo json_encode(['error' => "L'envoi a échoué. Réessayez ou écrivez-nous directement."]);
+    exit;
 }
+
+// Échec : on fait remonter le détail réel pour pouvoir diagnostiquer.
+http_response_code(502);
+
+if ($curlErr) {
+    // Impossible de joindre l'API Resend (réseau, SSL, DNS…).
+    echo json_encode(['error' => "Connexion à Resend impossible : $curlErr"]);
+    exit;
+}
+
+$resendBody = json_decode($response, true);
+$detail = $resendBody['message']
+    ?? $resendBody['error']['message']
+    ?? $resendBody['name']
+    ?? $response
+    ?? 'réponse vide';
+
+echo json_encode(['error' => "Resend a répondu $httpCode : $detail"]);

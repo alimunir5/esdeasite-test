@@ -30,8 +30,17 @@ export default function Contact() {
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Une erreur est survenue.");
+        const raw = await res.text();
+        let data = {};
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          // Réponse non-JSON (404, page d'erreur PHP, plantage serveur…)
+          throw new Error(
+            `Erreur serveur ${res.status}. ${raw.slice(0, 200) || "Réponse vide."}`,
+          );
+        }
+        throw new Error(data.error || `Erreur ${res.status}.`);
       }
 
       setStatus("success");
