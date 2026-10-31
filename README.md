@@ -1,6 +1,6 @@
 # ESDEA Consulting — Site officiel
 
-Site web du cabinet de conseil **ESDEA Consulting** (data, IA, développement).
+Pour présenter le cabinet de conseil **ESDEA Consulting** (data, IA, développement) et permettre de le contacter, ce site vitrine en React et Vite est hébergé chez OVH, avec un formulaire de contact en PHP relié à Resend.
 
 - **Stack** : React 18 + Vite + React Router
 - **Hébergement** : OVH Cloud (hébergement mutualisé)
